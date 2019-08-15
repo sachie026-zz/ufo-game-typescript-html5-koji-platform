@@ -1,6 +1,12 @@
 {
   "images": {
-    "mouse": "https://images.koji-cdn.com/76a58d18-9031-4cf9-871c-b4701b0e2537/f4864534-ede5-40e9-ac53-a81df8a25d77.png"
+    "weapon": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngspacecraftrocketlaunchencapsulatedpostscripttspacecraft5adf506dacd367.3069707015245845577079.png",
+    "weapon2": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngspacecraftrocketlaunchcomputericonsrocketlaunching5b0703e51b5608.495069261527186405112.png",
+    "player": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/5a249c94439848.4055005715123488202769.png",
+    "background": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/9efac2f93f75442c9c802e1ce1379bed.jpg",
+    "fish1": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngunidentifiedflyingobjectscalablevectorgraphicufosvgpngiconfreedownload561634onlinew5c7d3fe403b808.5852466715517122280152.png",
+    "fish2": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngflyingsaucerunidentifiedflyingobjectcartooncufovector5a6c6c41256e52.4218291015170550411533.png",
+    "explode": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngexplosion5d47fd12ec6650.2825669315649989309683.png"
   },
   "@@editor": [
     {
@@ -10,9 +16,45 @@
       "source": "images.json",
       "fields": [
         {
-          "key": "mouse",
-          "name": "Icon",
+          "key": "weapon",
+          "name": "Weapon",
           "description": "Icon that spins on the page",
+          "type": "image"
+        },
+        {
+          "key": "weapon2",
+          "name": "Weapon2",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "player",
+          "name": "Player",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "background",
+          "name": "Background",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "fish1",
+          "name": "Fish1",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "fish2",
+          "name": "Fish2",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "explode",
+          "name": "Explosion",
+          "description": "Ideal size: 32x32",
           "type": "image"
         }
       ]

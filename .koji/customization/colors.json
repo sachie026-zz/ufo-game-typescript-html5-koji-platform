@@ -1,7 +1,15 @@
 {
   "colors": {
     "backgroundColor": "#3f62ae",
-    "textColor": "#ffffff"
+    "textColor": "#ffffff",
+    "playButtonTextColor": "#fff",
+    "playButtonColor": "#676363",
+    "scoreColor": "#b3b3b0",
+    "highscoreColor": "#797979",
+    "titleColor": "#f17777",
+    "instructionsColor": "#5483b3",
+    "playButtonHoverColor": "#000",
+    "playButtonClickColor": "#ffffff"
   },
   "@@editor": [
     {
@@ -19,6 +27,26 @@
         {
           "key": "backgroundColor",
           "name": "Background color",
+          "type": "color"
+        },
+        {
+          "key": "playButtonTextColor",
+          "name": "Play Button Text Color",
+          "type": "color"
+        },
+        {
+          "key": "playButtonColor",
+          "name": "Play Button Color",
+          "type": "color"
+        },
+        {
+          "key": "playButtonHoverColor",
+          "name": "Play Button Hover Color",
+          "type": "color"
+        },
+        {
+          "key": "playButtonClickColor",
+          "name": "Play Button Click Color",
           "type": "color"
         }
       ]

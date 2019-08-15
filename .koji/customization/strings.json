@@ -1,6 +1,19 @@
 {
   "strings": {
-    "content": "Koji P5 Scaffold"
+    "content": "UFO",
+    "scoreText": "Score:",
+    "playButtonText": "PLAY NOW",
+    "gameOverText": "Game Over",
+    "yourScoreLabel": "Your Score",
+    "gameTitle": "UFO",
+    "gameTagLine": "Strike down the enemy spaceships",
+    "highScoreLabel": "High Score",
+    "scoreLabel": "Score: ",
+    "livesLabel": "Lives: ",
+    "instr1": "Task is to launch the rocket and explode the spaceship.",
+    "instr2": "Different rocket and spaceship has different speed.",
+    "instr3": "Collision of rocket with similar color as spaceship will give you more points.",
+    "instr4": "Use Left / Right Arrow to change the rocket. Use Up arrow to launch the rocket "
   },
   "@@editor": [
     {
@@ -13,6 +26,84 @@
           "key": "content",
           "name": "Page Content",
           "description": "The text that is displayed on the page",
+          "type": "text"
+        },
+        {
+          "key": "scoreText",
+          "name": "Score Text",
+          "description": "Default: 'Score:'",
+          "type": "text"
+        },
+        {
+          "key": "playButtonText",
+          "name": "Play Button Text",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "gameOverText",
+          "name": "Game Over",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "yourScoreLabel",
+          "name": "Your Score",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "highScoreLabel",
+          "name": "High Score",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "gameTitle",
+          "name": "UFO",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "gameTagLine",
+          "name": "Strike down the enemy spaceships",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "scoreLabel",
+          "name": "Score: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "livesLabel",
+          "name": "Lives: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr1",
+          "name": "Instruction 1: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr2",
+          "name": "Instruction 2: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr3",
+          "name": "Instruction 3: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr4",
+          "name": "Instruction 4: ",
+          "description": "Label on the Play Button",
           "type": "text"
         }
       ]
