@@ -270,14 +270,14 @@ function init() {
 function isCollision(){
     //Usin y position codition with 185 : because it will increase the performance by not checking the rocket with UFO for every y position
     //As we already know that the UFos are flying max at around 175 
-    if(currentRocket && currentRocket.pos.y < 250){
+    if(currentRocket && currentRocket.pos.y < (height - 2)){
         let ufoCount = allUfos.length;
         for(let i= 0 ; i < ufoCount; i++){
             let min = (width / 2) - 15;
             let max = (width / 2) + 15;
 
             let minY = allUfos[i].pos.y ;
-            let maxY = allUfos[i].pos.y + 15;
+            let maxY = allUfos[i].pos.y + 25;
             
             //Checking if x position is near by
             if(allUfos[i].pos.x > min && allUfos[i].pos.x < max ){
