@@ -72,7 +72,7 @@ let touching = false; //Whether the user is currently touching/clicking
 let playerY;
 let gravity = 0.1;
 
-let gameSpeed = 2.5;
+let gameSpeed = 3;
 let ufoDirection = 1;
 
 let ufoYPositions = [75, 125, 175];
@@ -270,7 +270,7 @@ function init() {
 function isCollision(){
     //Usin y position codition with 185 : because it will increase the performance by not checking the rocket with UFO for every y position
     //As we already know that the UFos are flying max at around 175 
-    if(currentRocket && currentRocket.pos.y < 185){
+    if(currentRocket && currentRocket.pos.y < 250){
         let ufoCount = allUfos.length;
         for(let i= 0 ; i < ufoCount; i++){
             let min = (width / 2) - 15;
