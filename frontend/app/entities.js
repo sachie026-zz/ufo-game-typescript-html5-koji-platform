@@ -58,9 +58,16 @@ class Ufo extends Entity{
     update(){
         if(this.direction == 0){
             this.pos.x += (gameSpeed + 1);
+            this.pos.y += 0.5;
         }
         else{
             this.pos.x -= gameSpeed;
+            if(this.color == "orange"){
+                this.pos.y -= 0.35;
+            }
+            else{
+                this.pos.y += 0.25;
+            }
         }
 
         if(this.pos.x < 0 || this.pos.x > width){
