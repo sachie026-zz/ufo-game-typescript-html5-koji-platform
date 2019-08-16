@@ -6,7 +6,9 @@
     "background": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/9efac2f93f75442c9c802e1ce1379bed.jpg",
     "fish1": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngunidentifiedflyingobjectscalablevectorgraphicufosvgpngiconfreedownload561634onlinew5c7d3fe403b808.5852466715517122280152.png",
     "fish2": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngflyingsaucerunidentifiedflyingobjectcartooncufovector5a6c6c41256e52.4218291015170550411533.png",
-    "explode": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngexplosion5d47fd12ec6650.2825669315649989309683.png"
+    "explode": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngexplosion5d47fd12ec6650.2825669315649989309683.png",
+    "fish3": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngspacecraftouterspacevectorillustrationofcartoonspaceship5aa22cb9d2a9e7.0933342215205777218629.png",
+    "weapon3": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngastronautouterspacespacecraftrocketloginfactumch5ce3754cdcfd54.3646095215584105729052.png"
   },
   "@@editor": [
     {
@@ -24,6 +26,12 @@
         {
           "key": "weapon2",
           "name": "Weapon2",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "weapon3",
+          "name": "Weapon3",
           "description": "Ideal size: 32x32",
           "type": "image"
         },
@@ -48,6 +56,12 @@
         {
           "key": "fish2",
           "name": "Fish2",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "fish3",
+          "name": "Fish3",
           "description": "Ideal size: 32x32",
           "type": "image"
         },

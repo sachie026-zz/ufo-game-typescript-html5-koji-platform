@@ -80,6 +80,7 @@ class Rocket extends Entity{
         //this.scale = createVector(1, 1);
     }
 
+
     update(){
         this.pos.y -= this.speed;
 

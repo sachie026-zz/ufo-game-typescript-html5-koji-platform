@@ -60,7 +60,7 @@ let objSize; //base size modifier of all objects, calculated based on screen siz
 
 //game size in tiles, using bigger numbers will decrease individual object sizes but allow more objects to fit the screen
 //Keep in mind that if you change this, you might need to change text sizes as well
-let gameSize = 18;
+let gameSize = 20;
 let gameWidth;
 
 //Coordinates of left and right sides of the game view
@@ -72,10 +72,10 @@ let touching = false; //Whether the user is currently touching/clicking
 let playerY;
 let gravity = 0.1;
 
-let gameSpeed = 5;
+let gameSpeed = 8;
 let ufoDirection = 1;
 
-let ufoYPositions = [75, 125, 175];
+let ufoYPositions = [70, 120, 170];
 let yPosIndex = 0;
 
 let rocketSelection = 0;
@@ -86,9 +86,13 @@ let gameStarted = false;
 
 let ufoMode = 0;
 let rocketSpeeds = [12, 15, 18];
-let colors = ["black", "blue", "red"];
+let colors = ["black", "blue", "orange"];
 
+//Variable : to track if user has not launched any rocket toward the UFO  
 let tenUfoPassed = 0;
+
+//Variable : total UFO and rockets configuration
+let totalUfoTypes = 3;
 
 function preload() {
 
@@ -121,7 +125,7 @@ function setup() {
     }
 
 
-    // make a full screen canvas
+    //Canva :  make a full screen canvas
     createCanvas(width, height);
 
     //Magically determine basic object size depending on size of the screen
@@ -136,23 +140,24 @@ function setup() {
 
     loadImages();
     initialize();
-    startUfoIncoming();
 
-   // img = loadImage(Koji.config.images.enemy); // Load the image
+   //Image : img = loadImage(Koji.config.images.enemy); // Load the image
     imgBackground = loadImage(Koji.config.images.background);
-//    playerY = height * 0.75;
-
 }
 
 
 function loadImages(){
-    //Load all the images for rockets, ufos and explosion
+    //Images : Load images for Weapons/rockets
     weaponImgs.push(loadImage(Koji.config.images.weapon));
     weaponImgs.push(loadImage(Koji.config.images.weapon2));
+    weaponImgs.push(loadImage(Koji.config.images.weapon3));
     
+    //Images : Load images for UFOs
     ufoImgs.push(loadImage(Koji.config.images.fish1));
     ufoImgs.push(loadImage(Koji.config.images.fish2));    
+    ufoImgs.push(loadImage(Koji.config.images.fish3));    
 
+    //Images : Load image for explosion
     imgExplosion = loadImage(Koji.config.images.explode);
 }
 
@@ -162,22 +167,20 @@ function initialize(){
     explode = new Collision();
 }
 
-function startUfoIncoming(){
-    
-}
-
 function createUfo(cnt){
 
     //Added conditions to create UFO
     //Added limit to 2 : only 2 UFO will fly at a time for now
-    if(allUfos.length < 2){
-
-        let rand = Math.floor(Math.random() * 2)
+    
+    // if(allUfos.length < 2){
+    if(allUfos.length < totalUfoTypes){
+        // let rand = Math.floor(Math.random() * 2)
+        let rand = Math.floor(Math.random() * totalUfoTypes);
         let x;
         let y;
         let dir;
 
-        x = rand * (width - 10);
+        x = (rand > 1 ? 1 : rand) * (width - 10);
         dir = rand;        
         y = ufoYPositions[dir];
         
@@ -222,11 +225,12 @@ function createExplode(x, y, scoreToAdd){
     explode.img =  imgExplosion;
     explode.render();
     tenUfoPassed = 0;
+    score += scoreToAdd;
+
     setTimeout(function(){
         explode.update();
         explode = null;
-        score += scoreToAdd;
-    },2000);
+    },1000);
 }
 
 
@@ -245,7 +249,9 @@ function keyReleased() {
 
     if (keyCode == RIGHT_ARROW) {
         if(!currentRocket.launched){
-            if(currentRocketIndex < 1){
+            // if(currentRocketIndex < 1){
+
+            if(currentRocketIndex < totalUfoTypes - 1){
                 currentRocketIndex++;
             }
             currentRocket.img = weaponImgs[currentRocketIndex];
@@ -272,7 +278,7 @@ function init() {
 }
 
 function isCollision(){
-    //Usin y position codition with 185 : because it will increase the performance by not checking the rocket with UFO for every y position
+    //Usin y position codition with half of height : because it will increase the performance by not checking the rocket with UFO for every y position
     //As we already know that the UFos are flying max at around 175 
     if(currentRocket && currentRocket.pos.y < (height - 2)){
         let ufoCount = allUfos.length;
@@ -290,6 +296,7 @@ function isCollision(){
                 if(currentRocket.pos.y > minY && currentRocket.pos.y < maxY){
                     let scoreToAdd = 1;
                     //Condition to check if UFO and rocket are of same color to give more score
+                    //totalLives = 
                     if(currentRocket.color == allUfos[i].color){
                         scoreToAdd = 5;
                     }
@@ -461,6 +468,14 @@ function draw() {
 
         // print out our text
         text(Koji.config.strings.livesLabel +": "  + totalLives, 50, height - 15);
+
+                // format our text
+        textSize(20);
+        fill(Koji.config.colors.textColor);
+        textAlign(CENTER);
+
+        // print out our text
+       // text("img "  +  JSON.stringify(currentRocket.color), 50, height - 15);
 
 
         createUfo(counter);
