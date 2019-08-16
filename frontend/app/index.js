@@ -72,7 +72,7 @@ let touching = false; //Whether the user is currently touching/clicking
 let playerY;
 let gravity = 0.1;
 
-let gameSpeed = 3;
+let gameSpeed = 5;
 let ufoDirection = 1;
 
 let ufoYPositions = [75, 125, 175];
@@ -87,6 +87,8 @@ let gameStarted = false;
 let ufoMode = 0;
 let rocketSpeeds = [12, 15, 18];
 let colors = ["black", "blue", "red"];
+
+let tenUfoPassed = 0;
 
 function preload() {
 
@@ -185,7 +187,7 @@ function createUfo(cnt){
         newUfo.color = colors[dir];
         newUfo.render();
         allUfos.push(newUfo);
-
+        tenUfoPassed++;
     }
     else{
         //If 2 UFOs already flying
@@ -219,6 +221,7 @@ function createExplode(x, y, scoreToAdd){
     explode = new Collision(x, y);
     explode.img =  imgExplosion;
     explode.render();
+    tenUfoPassed = 0;
     setTimeout(function(){
         explode.update();
         explode = null;
@@ -262,6 +265,7 @@ function init() {
 
     score = 0;
     totalLives = 10;
+    tenUfoPassed = 0;
 
     gameStarted = true;
     gameBeginning = true;
@@ -273,11 +277,11 @@ function isCollision(){
     if(currentRocket && currentRocket.pos.y < (height - 2)){
         let ufoCount = allUfos.length;
         for(let i= 0 ; i < ufoCount; i++){
-            let min = (width / 2) - 15;
-            let max = (width / 2) + 15;
+            let min = (width / 2) - 25;
+            let max = (width / 2) + 25;
 
             let minY = allUfos[i].pos.y ;
-            let maxY = allUfos[i].pos.y + 25;
+            let maxY = allUfos[i].pos.y + 35;
             
             //Checking if x position is near by
             if(allUfos[i].pos.x > min && allUfos[i].pos.x < max ){
@@ -433,6 +437,14 @@ function draw() {
         playButton.btn.draw();
 
     }else{//Game started
+
+        if(tenUfoPassed == 10){
+            totalLives--;
+            if(totalLives < 1){
+                gameStarted = false;
+            }
+            tenUfoPassed = 0;
+        }
 
         // format our text
         textSize(20);

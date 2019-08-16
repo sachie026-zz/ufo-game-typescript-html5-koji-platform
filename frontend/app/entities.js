@@ -85,7 +85,7 @@ class Rocket extends Entity{
 
         if(this.pos.y <= 10){
             totalLives--;
-            if(totalLives == 0){
+            if(totalLives < 1){
                 if(score > highScore){
                     highScore = score;
                     localStorage.setItem("highscore", score);
