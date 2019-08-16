@@ -211,9 +211,18 @@ function createUfo(cnt){
 function createRocket(){
     //Create new rocket and initialize to its base position
     currentRocket = new Rocket(width/ 2, height - 85);
+    // currentRocket.img =  weaponImgs[currentRocketIndex];
+    // currentRocket.type = currentRocketIndex;
+    // currentRocket.color = colors[currentRocketIndex];
+    // currentRocket.render();
+    rocketInitialization();
+}
+
+function rocketInitialization(){
     currentRocket.img =  weaponImgs[currentRocketIndex];
     currentRocket.type = currentRocketIndex;
     currentRocket.color = colors[currentRocketIndex];
+    currentRocket.speed = rocketSpeeds[currentRocketIndex];
     currentRocket.render();
 }
 
@@ -232,29 +241,39 @@ function createExplode(x, y, scoreToAdd){
 }
 
 
+function handleCurrentRocketIndex(){
+    // if(counter % 100 == 0){
+        currentRocketIndex++;
+        if(currentRocketIndex == totalUfoTypes){
+            currentRocketIndex = 0;
+        }
+        rocketInitialization();
+        // currentRocket.speed = rocketSpeeds[currentRocketIndex];
+    // }
+}
 
 function keyReleased() {
     //Left and right arrow : to change the rocket type
     if (keyCode == LEFT_ARROW) {
-        if(!currentRocket.launched){
-            if(currentRocketIndex > 0){
-                currentRocketIndex--;
-            }
+        // if(!currentRocket.launched){
+        //     if(currentRocketIndex > 0){
+        //         currentRocketIndex--;
+        //     }
 
-            currentRocket.img = weaponImgs[currentRocketIndex];
-        }
+        //     currentRocket.img = weaponImgs[currentRocketIndex];
+        // }
     }
 
     if (keyCode == RIGHT_ARROW) {
-        if(!currentRocket.launched){
+        // if(!currentRocket.launched){
       
-            if(currentRocketIndex < totalUfoTypes - 1){
-                currentRocketIndex++;
-            }
-            currentRocket.img = weaponImgs[currentRocketIndex];
-        }
+        //     if(currentRocketIndex < totalUfoTypes - 1){
+        //         currentRocketIndex++;
+        //     }
+        //     currentRocket.img = weaponImgs[currentRocketIndex];
+        // }
     }
-    currentRocket.speed = rocketSpeeds[currentRocketIndex];
+    //currentRocket.speed = rocketSpeeds[currentRocketIndex];
 
     //UP : to launch the rocket
     if (keyCode == UP_ARROW) {
@@ -269,6 +288,8 @@ function init() {
     score = 0;
     totalLives = 10;
     tenUfoPassed = 0;
+    counter = 0;
+
 
     gameStarted = true;
     gameBeginning = true;
@@ -308,6 +329,7 @@ function isCollision(){
     }
     return false;
 } 
+
 
 function draw() {
     // set the background color from the configuration options
@@ -450,13 +472,7 @@ function draw() {
             tenUfoPassed = 0;
         }
 
-        // format our text
-        textSize(20);
-        fill(Koji.config.colors.textColor);
-        textAlign(CENTER);
 
-        // print out our text
-        text(Koji.config.strings.scoreLabel +": "  + score, width - 50, height - 15);
 
         // format our text
         textSize(20);
@@ -464,7 +480,15 @@ function draw() {
         textAlign(CENTER);
 
         // print out our text
-        text(Koji.config.strings.livesLabel +": "  + totalLives, 50, height - 15);
+        text(Koji.config.strings.scoreLabel +" "  + score, width - 50, height - 15);
+
+        // format our text
+        textSize(20);
+        fill(Koji.config.colors.textColor);
+        textAlign(CENTER);
+
+        // print out our text
+        text(Koji.config.strings.livesLabel +" "  + totalLives , 50, height - 15);
 
                 // format our text
         textSize(20);
@@ -478,10 +502,12 @@ function draw() {
         createUfo(counter);
         if(!currentRocket){
             createRocket();
+            handleCurrentRocketIndex();
         }
         else{
             if(currentRocket.removable ==  true){
                 currentRocket = null;
+                // handleCurrentRocketIndex();
             }
             else{
                 //Checking if rocket launched
