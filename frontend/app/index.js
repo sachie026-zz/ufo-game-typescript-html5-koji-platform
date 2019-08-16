@@ -60,7 +60,7 @@ let objSize; //base size modifier of all objects, calculated based on screen siz
 
 //game size in tiles, using bigger numbers will decrease individual object sizes but allow more objects to fit the screen
 //Keep in mind that if you change this, you might need to change text sizes as well
-let gameSize = 20;
+let gameSize = 22;
 let gameWidth;
 
 //Coordinates of left and right sides of the game view
@@ -72,10 +72,10 @@ let touching = false; //Whether the user is currently touching/clicking
 let playerY;
 let gravity = 0.1;
 
-let gameSpeed = 8;
+let gameSpeed = 6;
 let ufoDirection = 1;
 
-let ufoYPositions = [70, 120, 170];
+let ufoYPositions = [50, 100, 150];
 let yPosIndex = 0;
 
 let rocketSelection = 0;
@@ -172,9 +172,7 @@ function createUfo(cnt){
     //Added conditions to create UFO
     //Added limit to 2 : only 2 UFO will fly at a time for now
     
-    // if(allUfos.length < 2){
     if(allUfos.length < totalUfoTypes){
-        // let rand = Math.floor(Math.random() * 2)
         let rand = Math.floor(Math.random() * totalUfoTypes);
         let x;
         let y;
@@ -249,8 +247,7 @@ function keyReleased() {
 
     if (keyCode == RIGHT_ARROW) {
         if(!currentRocket.launched){
-            // if(currentRocketIndex < 1){
-
+      
             if(currentRocketIndex < totalUfoTypes - 1){
                 currentRocketIndex++;
             }
