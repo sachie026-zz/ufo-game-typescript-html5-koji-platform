@@ -11,9 +11,10 @@
     "scoreLabel": "Score: ",
     "livesLabel": "Lives: ",
     "instr1": "Task is to launch the rocket and explode the spaceship.",
-    "instr2": "Different rocket and spaceship has different speed.",
+    "instr2": "Different rockets and spaceships has different speed.",
     "instr3": "Collision of rocket with similar color as spaceship will give you more points.",
-    "instr4": "Use Left / Right Arrow to change the rocket. Use Up arrow to launch the rocket "
+    "instr4": "Rocket will get changed to next one after launching the current rocket",
+    "instr5": "Use Up arrow to launch the rocket "
   },
   "@@editor": [
     {
@@ -103,6 +104,12 @@
         {
           "key": "instr4",
           "name": "Instruction 4: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr5",
+          "name": "Instruction 5: ",
           "description": "Label on the Play Button",
           "type": "text"
         }

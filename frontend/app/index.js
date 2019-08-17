@@ -8,6 +8,14 @@ let gameOver = false; //If it's true the game will render the main menu
 let gameBeginning = false; //Should be true only before the user starts the game for the first time
 
 let counter = 0;
+let soundEnabled = true;
+let canMute = true;
+let sndMusic;
+
+let touchCurrentX = 0;
+let touchStartX = 0;
+let usingKeyboard = false;
+
 
 //===Buttons
 let playButton;
@@ -23,10 +31,6 @@ let explode = null;
 let enemyWeapons = [];
 let weapons = [];
 
-let collectibles = [];
-let explosions = [];
-
-
 let width;
 let height;
 
@@ -37,15 +41,14 @@ let totalLives = 10;
 //===images
 //let imgLife;
 let imgBackground;
-let imgPlayer;
 let imgExplosion;
-let imgCollectible = [];
-let imgShield;
-let imgEnemy = [];
 let imgFloor;
 let imgFish = [];
 let imgWeapon;
 let imgWeapon2;
+
+let soundImage;
+let muteImage;
 
 let weaponImgs = [];
 let ufoImgs = [];
@@ -75,9 +78,6 @@ let gravity = 0.1;
 let gameSpeed = 6;
 let ufoDirection = 1;
 
-let ufoYPositions = [50, 100, 150];
-let yPosIndex = 0;
-
 let rocketSelection = 0;
 let rocketCreated =  false;
 
@@ -85,11 +85,17 @@ let currentRocket = null;
 let gameStarted = false;
 
 let ufoMode = 0;
+
+//Configurable number of UFOs, Rockets and Colors
 let rocketSpeeds = [12, 15, 18];
 let colors = ["black", "blue", "orange"];
+let ufoYPositions = [50, 100, 150];
+
+let yPosIndex = 0;
 
 //Variable : to track if user has not launched any rocket toward the UFO  
-let tenUfoPassed = 0;
+let ufoPassedCount = 0;
+let maxUfoPassCount = 10;
 
 //Variable : total UFO and rockets configuration
 let totalUfoTypes = 3;
@@ -97,10 +103,13 @@ let totalUfoTypes = 3;
 function preload() {
 
     // setup sounds
-    soundFormats('mp3', 'ogg');
-    sounds = {
-        backgroundMusic: loadSound(Koji.config.sounds.backgroundMusic)
-    };
+    // soundFormats('mp3', 'ogg');
+    // sounds = {
+    //     backgroundMusic: loadSound(Koji.config.sounds.backgroundMusic)
+    // };
+
+    //    //===Load Sounds
+    if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic);
 
     //===Load font from google fonts link provided in game settings
     var link = document.createElement('link');
@@ -123,7 +132,6 @@ function setup() {
     if (height > width) {
         sizeModifier = 1;
     }
-
 
     //Canva :  make a full screen canvas
     createCanvas(width, height);
@@ -159,12 +167,20 @@ function loadImages(){
 
     //Images : Load image for explosion
     imgExplosion = loadImage(Koji.config.images.explode);
+
+    //Images: Load images for sound
+    soundImage = loadImage(Koji.config.images.soundImage);
+    muteImage = loadImage(Koji.config.images.muteImage);
+
 }
 
 function initialize(){
     //Initialize the play button for the first time 
     playButton = new PlayButton();
+    soundButton = new SoundButton();
     explode = new Collision();
+    //playMusic();
+
 }
 
 function createUfo(cnt){
@@ -188,7 +204,7 @@ function createUfo(cnt){
         newUfo.color = colors[dir];
         newUfo.render();
         allUfos.push(newUfo);
-        tenUfoPassed++;
+        ufoPassedCount++;
     }
     else{
         //If 2 UFOs already flying
@@ -211,14 +227,11 @@ function createUfo(cnt){
 function createRocket(){
     //Create new rocket and initialize to its base position
     currentRocket = new Rocket(width/ 2, height - 85);
-    // currentRocket.img =  weaponImgs[currentRocketIndex];
-    // currentRocket.type = currentRocketIndex;
-    // currentRocket.color = colors[currentRocketIndex];
-    // currentRocket.render();
     rocketInitialization();
 }
 
 function rocketInitialization(){
+    //Update the rocket image/type/speed and render it
     currentRocket.img =  weaponImgs[currentRocketIndex];
     currentRocket.type = currentRocketIndex;
     currentRocket.color = colors[currentRocketIndex];
@@ -231,7 +244,7 @@ function createExplode(x, y, scoreToAdd){
     explode = new Collision(x, y);
     explode.img =  imgExplosion;
     explode.render();
-    tenUfoPassed = 0;
+    ufoPassedCount = 0;
     score += scoreToAdd;
 
     setTimeout(function(){
@@ -242,38 +255,42 @@ function createExplode(x, y, scoreToAdd){
 
 
 function handleCurrentRocketIndex(){
-    // if(counter % 100 == 0){
         currentRocketIndex++;
         if(currentRocketIndex == totalUfoTypes){
             currentRocketIndex = 0;
         }
         rocketInitialization();
-        // currentRocket.speed = rocketSpeeds[currentRocketIndex];
-    // }
+}
+
+//===Handle input
+function touchStarted() {
+
+    if (soundButton && soundButton.checkClick()) {
+        toggleSound();
+        return;
+    }
+
+    //if (gameOver && gameBeginning) {
+        //Ingame
+        touching = true;
+        touchStartX = mouseX;
+        touchCurrentX = mouseX;
+    //}//
+
+    usingKeyboard = false;
+}
+
+function touchEnded() {
+    touching = false;
 }
 
 function keyReleased() {
     //Left and right arrow : to change the rocket type
     if (keyCode == LEFT_ARROW) {
-        // if(!currentRocket.launched){
-        //     if(currentRocketIndex > 0){
-        //         currentRocketIndex--;
-        //     }
-
-        //     currentRocket.img = weaponImgs[currentRocketIndex];
-        // }
     }
 
     if (keyCode == RIGHT_ARROW) {
-        // if(!currentRocket.launched){
-      
-        //     if(currentRocketIndex < totalUfoTypes - 1){
-        //         currentRocketIndex++;
-        //     }
-        //     currentRocket.img = weaponImgs[currentRocketIndex];
-        // }
     }
-    //currentRocket.speed = rocketSpeeds[currentRocketIndex];
 
     //UP : to launch the rocket
     if (keyCode == UP_ARROW) {
@@ -287,7 +304,7 @@ function init() {
 
     score = 0;
     totalLives = 10;
-    tenUfoPassed = 0;
+    ufoPassedCount = 0;
     counter = 0;
 
 
@@ -314,7 +331,6 @@ function isCollision(){
                 if(currentRocket.pos.y > minY && currentRocket.pos.y < maxY){
                     let scoreToAdd = 1;
                     //Condition to check if UFO and rocket are of same color to give more score
-                    //totalLives = 
                     if(currentRocket.color == allUfos[i].color){
                         scoreToAdd = 5;
                     }
@@ -339,7 +355,7 @@ function draw() {
     } else {
         background(Koji.config.colors.backgroundColor);
     }
-
+  
     counter++;
 
     //For the first time
@@ -377,7 +393,7 @@ function draw() {
         textAlign(CENTER);
 
         // print out our text
-        text(Koji.config.strings.instr1, window.innerWidth / 2, height / 2 - 125);
+        text(Koji.config.strings.instr1, window.innerWidth / 2, height / 2 - 140);
 
                 // format our text
         textSize(16);
@@ -385,7 +401,7 @@ function draw() {
         textAlign(CENTER);
 
         // print out our text
-        text(Koji.config.strings.instr2, window.innerWidth / 2, height / 2 - 88);
+        text(Koji.config.strings.instr2, window.innerWidth / 2, height / 2 - 100);
 
                 // format our text
         textSize(16);
@@ -393,19 +409,27 @@ function draw() {
         textAlign(CENTER);
 
         // print out our text
-        text(Koji.config.strings.instr3, window.innerWidth / 2, height / 2 - 40);
-// \n
+        text(Koji.config.strings.instr3, window.innerWidth / 2, height / 2 - 60);
 
         textSize(16);
         fill(Koji.config.colors.playButtonHoverColor);
         textAlign(CENTER);
 
         // print out our text
-        text(Koji.config.strings.instr4, window.innerWidth / 2, height / 2 + 10);
+        text(Koji.config.strings.instr4, window.innerWidth / 2, height / 2 - 20);
+
+        textSize(16);
+        fill(Koji.config.colors.playButtonHoverColor);
+        textAlign(CENTER);
+
+        // print out our text
+        text(Koji.config.strings.instr5, window.innerWidth / 2, height / 2 + 15);
+
+
         // play our background music
-        if (!sounds.backgroundMusic.isPlaying()) {
-            sounds.backgroundMusic.play();
-        }
+        // if (!sounds.backgroundMusic.isPlaying()) {
+        //     sounds.backgroundMusic.play();
+        // }
         playButton.update();
         playButton.btn.draw();
     }
@@ -455,21 +479,18 @@ function draw() {
         // print out our text
         text(Koji.config.strings.highScoreLabel +": "  + highScore, width / 2, height  - 30);
 
-        // play our background music
-        if (!sounds.backgroundMusic.isPlaying()) {
-            //sounds.backgroundMusic.play();
-        }
         playButton.update();
         playButton.btn.draw();
 
     }else{//Game started
 
-        if(tenUfoPassed == 10){
+        //Check if user has not launched any rocket for {count} and reduce the life 
+        if(ufoPassedCount == maxUfoPassCount){
             totalLives--;
             if(totalLives < 1){
                 gameStarted = false;
             }
-            tenUfoPassed = 0;
+            ufoPassedCount = 0;
         }
 
 
@@ -490,15 +511,6 @@ function draw() {
         // print out our text
         text(Koji.config.strings.livesLabel +" "  + totalLives , 50, height - 15);
 
-                // format our text
-        textSize(20);
-        fill(Koji.config.colors.textColor);
-        textAlign(CENTER);
-
-        // print out our text
-       // text("img "  +  JSON.stringify(currentRocket.color), 50, height - 15);
-
-
         createUfo(counter);
         if(!currentRocket){
             createRocket();
@@ -507,7 +519,6 @@ function draw() {
         else{
             if(currentRocket.removable ==  true){
                 currentRocket = null;
-                // handleCurrentRocketIndex();
             }
             else{
                 //Checking if rocket launched
@@ -523,5 +534,5 @@ function draw() {
             }
         }
     }
-
+    //soundButton.render();
 }

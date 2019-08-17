@@ -1,5 +1,7 @@
 {
   "images": {
+    "soundImage": "https://i.imgur.com/rtFppa8.png",
+    "muteImage": "https://i.imgur.com/AR7C733.png",
     "weapon": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngspacecraftrocketlaunchencapsulatedpostscripttspacecraft5adf506dacd367.3069707015245845577079.png",
     "weapon2": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/kisspngspacecraftrocketlaunchcomputericonsrocketlaunching5b0703e51b5608.495069261527186405112.png",
     "player": "https://images.koji-cdn.com/910e43d8-0f30-4d7d-9255-c5a605c93f6e/5a249c94439848.4055005715123488202769.png",
@@ -17,6 +19,18 @@
       "icon": "🖼️",
       "source": "images.json",
       "fields": [
+           {
+          "key": "soundImage",
+          "name": "Sound Icon",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "muteImage",
+          "name": "Mute Icon",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
         {
           "key": "weapon",
           "name": "Weapon",

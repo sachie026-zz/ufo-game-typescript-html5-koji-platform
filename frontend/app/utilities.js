@@ -88,7 +88,6 @@ class PlayButton {
         this.btn.textColor = Koji.config.colors.playButtonTextColor;
 
         this.size = createVector(this.btn.textWidth, this.btn.textSize);
-        //this.pos = createVector(width / 2 - this.size.x / 2, height / 2 - this.size.y / 2 + objSize * 2);
         this.pos = createVector(width / 2 - this.size.x / 2, height );
 
         if (this.size.y > width) {
