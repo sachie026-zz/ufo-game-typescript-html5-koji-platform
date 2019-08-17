@@ -61,8 +61,6 @@ let allUfos = [];
 //===Size stuff
 let objSize; //base size modifier of all objects, calculated based on screen size
 
-//game size in tiles, using bigger numbers will decrease individual object sizes but allow more objects to fit the screen
-//Keep in mind that if you change this, you might need to change text sizes as well
 let gameSize = 22;
 let gameWidth;
 
@@ -86,7 +84,7 @@ let gameStarted = false;
 
 let ufoMode = 0;
 
-//Configurable number of UFOs, Rockets and Colors
+//Configurable: number of UFOs, Rockets and Colors
 let rocketSpeeds = [12, 15, 18];
 let colors = ["black", "blue", "orange"];
 let ufoYPositions = [50, 100, 150];
@@ -101,12 +99,6 @@ let maxUfoPassCount = 10;
 let totalUfoTypes = 3;
 
 function preload() {
-
-    // setup sounds
-    // soundFormats('mp3', 'ogg');
-    // sounds = {
-    //     backgroundMusic: loadSound(Koji.config.sounds.backgroundMusic)
-    // };
 
     //    //===Load Sounds
     if (Koji.config.sounds.backgroundMusic) sndMusic = loadSound(Koji.config.sounds.backgroundMusic);
@@ -133,7 +125,7 @@ function setup() {
         sizeModifier = 1;
     }
 
-    //Canva :  make a full screen canvas
+    //Canvas :  make a full screen canvas
     createCanvas(width, height);
 
     //Magically determine basic object size depending on size of the screen
@@ -155,17 +147,17 @@ function setup() {
 
 
 function loadImages(){
-    //Images : Load images for Weapons/rockets
+    //===Images : Load images for Weapons/rockets
     weaponImgs.push(loadImage(Koji.config.images.weapon));
     weaponImgs.push(loadImage(Koji.config.images.weapon2));
     weaponImgs.push(loadImage(Koji.config.images.weapon3));
     
-    //Images : Load images for UFOs
+    //===Images : Load images for UFOs
     ufoImgs.push(loadImage(Koji.config.images.fish1));
     ufoImgs.push(loadImage(Koji.config.images.fish2));    
     ufoImgs.push(loadImage(Koji.config.images.fish3));    
 
-    //Images : Load image for explosion
+    //===Images : Load image for explosion
     imgExplosion = loadImage(Koji.config.images.explode);
 
     //Images: Load images for sound
@@ -179,7 +171,7 @@ function initialize(){
     playButton = new PlayButton();
     soundButton = new SoundButton();
     explode = new Collision();
-    //playMusic();
+   // playMusic();
 
 }
 
@@ -425,11 +417,13 @@ function draw() {
         // print out our text
         text(Koji.config.strings.instr5, window.innerWidth / 2, height / 2 + 15);
 
+        textSize(16);
+        fill(Koji.config.colors.playButtonHoverColor);
+        textAlign(CENTER);
 
-        // play our background music
-        // if (!sounds.backgroundMusic.isPlaying()) {
-        //     sounds.backgroundMusic.play();
-        // }
+        // print out our text
+        text(Koji.config.strings.instr6, window.innerWidth / 2, height / 2 + 50);
+
         playButton.update();
         playButton.btn.draw();
     }
@@ -510,6 +504,14 @@ function draw() {
 
         // print out our text
         text(Koji.config.strings.livesLabel +" "  + totalLives , 50, height - 15);
+
+        // format our text
+        textSize(20);
+        fill(Koji.config.colors.textColor);
+        textAlign(CENTER);
+
+        // print out our text
+        text("UFO's passed : "  + ufoPassedCount, width / 2, height  - 30);
 
         createUfo(counter);
         if(!currentRocket){

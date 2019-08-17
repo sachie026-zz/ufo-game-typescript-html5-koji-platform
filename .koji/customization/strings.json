@@ -14,7 +14,9 @@
     "instr2": "Different rockets and spaceships has different speed.",
     "instr3": "Collision of rocket with similar color as spaceship will give you more points.",
     "instr4": "Rocket will get changed to next one after launching the current rocket",
-    "instr5": "Use Up arrow to launch the rocket "
+    "instr5": "Use Up arrow to launch the rocket ",
+    "instr6": "If rocket not launched for 10 continuous spaceships, you will lose one life",
+    "ufoPassedLabel": "UFO's passed"
   },
   "@@editor": [
     {
@@ -84,6 +86,12 @@
           "type": "text"
         },
         {
+          "key": "ufoPassedLabel",
+          "name": "ufoPassed: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
           "key": "instr1",
           "name": "Instruction 1: ",
           "description": "Label on the Play Button",
@@ -110,6 +118,12 @@
         {
           "key": "instr5",
           "name": "Instruction 5: ",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "instr6",
+          "name": "Instruction 6: ",
           "description": "Label on the Play Button",
           "type": "text"
         }
