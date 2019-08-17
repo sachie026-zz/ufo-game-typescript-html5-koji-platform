@@ -73,7 +73,7 @@ let touching = false; //Whether the user is currently touching/clicking
 let playerY;
 let gravity = 0.1;
 
-let gameSpeed = 6;
+let gameSpeed = 5;
 let ufoDirection = 1;
 
 let rocketSelection = 0;
@@ -298,7 +298,7 @@ function init() {
     totalLives = 10;
     ufoPassedCount = 0;
     counter = 0;
-
+    gameSpeed = 5;
 
     gameStarted = true;
     gameBeginning = true;
@@ -429,9 +429,9 @@ function draw() {
     }
     else if(!gameStarted){ //If game over
 
-        if (localStorage.getItem("highscore")) {
-            highScore = localStorage.getItem("highscore");
-        }
+        // if (localStorage.getItem("highscore")) {
+        //     highScore = localStorage.getItem("highscore");
+        // }
         // format our text
         textSize(30);
         fill(Koji.config.colors.textColor);
@@ -478,15 +478,34 @@ function draw() {
 
     }else{//Game started
 
+        if(score > 50 && score < 100){
+            gameSpeed = 6;
+        }
+        else if(score > 100 && score < 150){
+            gameSpeed = 6.5;
+        }
+        else if(score > 150 && score < 200){
+            gameSpeed = 7;
+        }
+        else if(score > 200 ){
+            gameSpeed = 8;
+        }
+        else{
+            gameSpeed = 5;
+        }
+
         //Check if user has not launched any rocket for {count} and reduce the life 
         if(ufoPassedCount == maxUfoPassCount){
             totalLives--;
             if(totalLives < 1){
+                if(score > highScore){
+                    highScore = score;
+                    localStorage.setItem("highscore", score);
+                }
                 gameStarted = false;
             }
             ufoPassedCount = 0;
         }
-
 
 
         // format our text

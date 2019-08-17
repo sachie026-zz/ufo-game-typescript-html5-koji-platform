@@ -98,9 +98,10 @@ class Rocket extends Entity{
                     highScore = score;
                     localStorage.setItem("highscore", score);
                 }
-
+               // setTimeout(function(){
                 gameStarted = false;
-                
+                //},100);
+                                
             }
             this.removable = true;
         }
